@@ -1,0 +1,53 @@
+<mat-stepper #stepper>
+    <mat-step [stepControl]="projectDetailGroup">
+      <form [formGroup]="projectDetailGroup">
+            <ng-template matStepLabel>Project Detail</ng-template>
+            <mat-form-field appearance="fill">
+            <input matInput  placeholder="Organization" formControlName="org">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+            <input matInput placeholder="Category" formControlName="cat">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+            <input matInput placeholder="title" formControlName="title">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+            <input matInput placeholder="Description" formControlName="des">
+            </mat-form-field>
+            <div>
+            <button mat-button matStepperNext (click)="addProjectDetail()">Next</button>
+            </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="projectCostGroup">
+      <form [formGroup]="projectCostGroup">
+        <ng-template matStepLabel>Project Costs</ng-template>
+        <mat-form-field appearance="fill">
+          <input matInput placeholder="Project Name" formControlName="proName">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="Project Duration" formControlName="proDuration">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="Project Cost" formControlName="proCost">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext (click)="addProjectCost()" >Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <div *ngFor="let pd of projectDetails | keyvalue ">
+            {{pd.key}} : {{pd?.value}}
+      </div>
+      <div *ngFor="let pc of projectCost | keyvalue ">
+            {{pc.key}} : {{pc?.value}}
+      </div>
+      <div>
+        <button mat-button matStepperPrevious (click)="submitDetail()">Submit</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
